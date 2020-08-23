@@ -1,0 +1,15 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: production
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: staging cluster
+  sourceRepos:
+  - '*'
+  destinations:
+  - namespace: apps
+    server: https://127.0.0.1:32768
