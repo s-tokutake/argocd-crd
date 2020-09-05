@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: datadog
+  namespace: argocd
+spec:
+  project: dev-system
+  source:
+    repoURL: https://helm.datadoghq.com
+    targetRevision: 0b9a473b7bb7ed70fc293095a4eec42db545fafe
+    path: charts/datadog
+    helm:
+      parameters:
+      - name: "datadog.apiKey"
+        value: "xxxxx"
+      releaseName: datadog
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system

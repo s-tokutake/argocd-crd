@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-dns
+  namespace: argocd
+spec:
+  project: prd-system
+  source:
+    repoURL: https://github.com/helm/charts.git
+    targetRevision: 014ca770196867dbdb829df2bf33cb49b2d3303b
+    path: stable/external-dns
+    helm:
+      parameters:
+      - name: "aws.region"
+        value: "ap-northeast-1"
+      - name: "podAnnotations"
+        value: "xxxxxx"
+      releaseName: external-dns
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system

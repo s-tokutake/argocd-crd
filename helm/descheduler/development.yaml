@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-dashboard
+  namespace: argocd
+spec:
+  project: dev-system
+  source:
+    repoURL: https://kubernetes.github.io/dashboard/
+    targetRevision: ba7650499196a93e454a08ca3ad5cdc553445a8f
+    path: kubernetes-dashboard/kubernetes-dashboard
+    helm:
+      releaseName: kubernetes-dashboard
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system

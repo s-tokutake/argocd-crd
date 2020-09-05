@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-dashboard
+  namespace: argocd
+spec:
+  project: dev-system
+  source:
+    repoURL: https://kubernetes.github.io/dashboard/
+    targetRevision: 014ca770196867dbdb829df2bf33cb49b2d3303b
+    path: kubernetes-dashboard/kubernetes-dashboard
+    helm:
+      parameters:
+      - name: "protocolHttp"
+        value: "true"
+        - name: "externalPort"
+        value: "80"
+      - name: "extraArgs"
+        value: "[--bind-address=0.0.0.0,--enable-insecure-login,--enable-skip-login,--insecure-bind-address=0.0.0.0]"
+      releaseName: kubernetes-dashboard
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system

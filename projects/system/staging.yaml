@@ -1,15 +1,13 @@
-
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: production
+  name: stg-system
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: staging cluster
-  sourceRepos:
-  - '*'
   destinations:
-  - namespace: apps
-    server: https://127.0.0.1:32768
+    - namespace: kube-system
+      server: https://kubernetes.default.svc
+  sourceRepos:
+    - 'https://github.com/helm/charts.git'

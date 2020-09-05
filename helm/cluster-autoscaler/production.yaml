@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cluster-autoscaler
+  namespace: argocd
+spec:
+  project: prd-system
+  source:
+    repoURL: https://github.com/kubernetes/autoscaler.git
+    targetRevision: b8e285b278da198458dd5d01fa237bed71e91219
+    path: autoscaler/charts/cluster-autoscaler-chart
+    helm:
+      parameters:
+      - name: "cloudProvider"
+        value: "aws"
+      - name: "awsRegion"
+        value: "ap-northeast-1"        
+      - name: "autoDiscovery.clusterName"
+        value: "xxxxxx"        
+      - name: "podAnnotations"
+        value: "xxxxxx"
+      releaseName: cluster-autoscaler
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system

@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: descheduler
+  namespace: argocd
+spec:
+  project: stg-system
+  source:
+    repoURL: https://github.com/kubernetes-sigs/descheduler.git
+    targetRevision: e6f1c6f78ac757b85e8a69b88e99b811bd4315df
+    path: descheduler/charts/descheduler
+    helm:
+      releaseName: descheduler
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
