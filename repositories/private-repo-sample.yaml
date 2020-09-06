@@ -16,3 +16,6 @@ data:
       usernameSecret:
         name: private-repo-secret-token
         key: username
+    - url: https://kubernetes.github.io/dashboard/    
+        name: kubernetes-dashboard
+        type: helm
